@@ -1,39 +1,41 @@
 import Home
 import random
+from Observer import Observer
+from Observable import Observable
 
 
-class Neighborhood:
+class Neighborhood(Observer, Observable):
     def __init__(self):
-        self.x = random.randint(1, 5)
-        self.y = random.randint(1, 5)
+        super(Neighborhood, self).__init__()
+        self.x = random.randint(2, 5)
+        self.y = random.randint(2, 5)
         self.houselist = []
-        self.totalhousecount = 0
-        for i in xrange(self.x):
-            for j in xrange(self.y):
+        self.housesdefeated = 0
+        self.totalhousecount= self.x*self.y
+        for i in xrange(self.y):
+            for j in xrange(self.x):
                 house = Home.Home()
                 self.houselist.append(house)
-                self.totalhousecount = self.totalhousecount + 1
-
-    def neighbors(self):
-        neighborlist = []
+                house.add_observer(self)
+        self.neighborlist = []
         for i in xrange(self.totalhousecount):
-            north = i - self.y
+            south = i - self.y
             east = i + 1
-            south = i + self.y
+            north = i + self.y
             west = i - 1
-            if north < 0:
-                north = None
-            if east > self.totalhousecount or east%self.y == 0:
-                east = None
-            if west < 0 or west%self.y == (self.totalhousecount - 1):
-                west = None
-            if south > self.totalhousecount:
+            if south < 0:
                 south = None
+            if east > self.totalhousecount or east % self.x == 0:
+                east = None
+            if west < 0 or west % self.x == (self.x - 1):
+                west = None
+            if north > self.totalhousecount:
+                north = None
         neighbor = [north, east, south, west]
-        neighborlist.append(neighbor)
+        self.neighborlist.append(neighbor)
 
-    def checkneighborhoodhealth(self):
-        totalneighborhoodhealth = 0
-        for i in xrange(self.totalhousecount):
-            totalneighborhoodhealth += self.houselist[i].checkhomehealth()
-        return totalneighborhoodhealth
+    def update(self):
+        self.housesdefeated += 1
+        if self.housesdefeated == self.totalhousecount:
+            for game in self.observable:
+                game.update()

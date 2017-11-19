@@ -4,6 +4,7 @@ from Observable import Observable
 
 class Monster(Observable):
     def __init__(self, type):
+        super(Monster, self).__init__()
         self.type = type
         if self.type == 0:
             self.name = "Person"
@@ -50,4 +51,5 @@ class Monster(Observable):
                 else:
                     self.health = self.health - weapon.damage
         if self.health <= 0:
-            self.remove_observer()
+            for home in self.observable:
+                home.update()
