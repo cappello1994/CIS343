@@ -3,7 +3,7 @@ import Monster
 from Observer import Observer
 from Observable import Observable
 
-
+"""Class for home objects that contain a random number of monsters."""
 class Home(Observer, Observable):
     def __init__(self):
         super(Home, self).__init__()
@@ -22,6 +22,9 @@ class Home(Observer, Observable):
             for neighborhood in self.observers:
                 neighborhood.update()
 
+    """Changes dead monsters into people, then alerts the neighborhood if every monster in the home has been
+       defeated.
+     """
     def update(self):
         humancount = 0
         for i in range(self.nummonstersinhome):

@@ -2,7 +2,7 @@ import random
 import Weapon
 from Observable import Observable
 
-
+"""Class for holding information regarding the player's status."""
 class Player(Observable):
     def __init__(self):
         super(Player, self).__init__()

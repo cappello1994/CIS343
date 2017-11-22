@@ -5,7 +5,10 @@ from Observer import Observer
 from threading import *
 screen_lock = Semaphore(value=1)
 
+"""A class for managing the instance of the the Game
 
+   Written by Stephanie Cappello and Saxton Stafford 
+"""
 class Game(Observer):
     def __init__(self):
         self.neighborhood = Neighborhood.Neighborhood()
@@ -15,6 +18,7 @@ class Game(Observer):
         self.currenthome = 0
         self.gameover = False
 
+    """Function for attacking with the player's chosen weapon."""
     def attack(self, weapon, indexofweapon):
         home = self.neighborhood.houselist[self.currenthome]
         for monsters in home.monstersinhome:
@@ -35,9 +39,11 @@ class Game(Observer):
         if self.player.inventory[indexofweapon].lifecycle == 0:
             self.player.inventory.pop(indexofweapon)
 
+    """Overridden update function that the Neighborhood calls when all houses are beaten."""
     def update(self):
         self.gameover = True
 
+    """Runs the game logic."""
     def run(self):
         screen_lock.acquire()
         print('Hi welcome to Halloweenie... The neighbor has been taken over by monsters '

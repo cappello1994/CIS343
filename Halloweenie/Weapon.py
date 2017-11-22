@@ -1,6 +1,6 @@
 import random
 
-
+"""Class for creating various weapon types."""
 class Weapon:
     def __init__(self):
         self.type = random.randint(0,3)

@@ -3,7 +3,7 @@ import random
 from Observer import Observer
 from Observable import Observable
 
-
+"""Class for containing all of the homes in the map."""
 class Neighborhood(Observer, Observable):
     def __init__(self):
         super(Neighborhood, self).__init__()
@@ -34,6 +34,7 @@ class Neighborhood(Observer, Observable):
         neighbor = [north, east, south, west]
         self.neighborlist.append(neighbor)
 
+    """Alerts the Game if every house in the neighborhood has been defeated"""
     def update(self):
         self.housesdefeated += 1
         if self.housesdefeated == self.totalhousecount:

@@ -1,3 +1,4 @@
+"""Interface for implementing the Oberver Pattern"""
 class Observable(object):
     def __init__(self):
         self.observers = []

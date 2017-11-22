@@ -1,7 +1,7 @@
 import random
 from Observable import Observable
 
-
+"""Class for creating various enemies."""
 class Monster(Observable):
     def __init__(self, type):
         super(Monster, self).__init__()
@@ -22,6 +22,7 @@ class Monster(Observable):
             self.name = "Werewolf"
             self.health = 200
 
+    """Function for damaging the player based on the type of monster."""
     def attack(self, player):
         if self.name == "Person":
             player.health = player.health + 1
@@ -34,6 +35,7 @@ class Monster(Observable):
         elif self.name == "Werewolf":
             player.health = player.health - random.randint(0, 40)
 
+    """Function for calculating damage taken by a monster when attacked by the player."""
     def attackedupon(self, weapon):
         if self.name != "Person":
             if weapon.name == "HersheyKisses":
